@@ -122,7 +122,7 @@ class FunctionExecutor:
 if __name__ == '__main__':
     # Configuration
     RUNPOD_ENDPOINT = "https://api.runpod.ai/v2/yv68hhady2hgii/runsync"
-    RUNPOD_API_KEY = "rpa_29GS7ZOVYZRB5D2XFTZNBU9JQTOGNN3AEZC8KJR14ahqwp"
+    RUNPOD_API_KEY = "API_KEY_HERE"
 
     # Create executor
     executor = FunctionExecutor(
