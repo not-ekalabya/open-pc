@@ -1,5 +1,5 @@
 {
     "input": {
-        "prompt": "Hey there!"
+        "code": "print('Hello, World!')\nresult = 2 + 2\nprint('The result is:', result)"
     }
 }
