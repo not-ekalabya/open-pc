@@ -1,6 +1,6 @@
 runpod
-numpy
-pandas
-torch
-torchvision
-torchaudio
+numpy==2.0.2
+pandas==2.2.2
+torch==2.8.0
+torchvision==0.23.0
+torchaudio==2.8.0
