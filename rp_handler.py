@@ -67,6 +67,13 @@ def handler(event):
 
     Returns:
         dict: Contains the execution output, stdout, stderr, and any errors
+
+    Input format:
+        - code (str): Python code to execute
+        - files (list): Optional list of files to upload
+        - function_name (str): Optional function name to call after executing code
+        - function_args (list): Optional positional arguments for the function
+        - function_kwargs (dict): Optional keyword arguments for the function
     """
 
     print(f"Worker Start")
@@ -77,6 +84,11 @@ def handler(event):
 
     # Get uploaded files (list of {path, content} dicts)
     files = input_data.get('files', [])
+
+    # Get function execution parameters
+    function_name = input_data.get('function_name', None)
+    function_args = input_data.get('function_args', [])
+    function_kwargs = input_data.get('function_kwargs', {})
 
     if not code:
         return {
@@ -132,8 +144,21 @@ def handler(event):
             # Execute the code
             exec(code, exec_namespace)
 
-            # If there's a 'result' variable in the namespace, use it as the result
-            if 'result' in exec_namespace:
+            # If function_name is specified, call the function
+            if function_name:
+                if function_name not in exec_namespace:
+                    raise ValueError(f"Function '{function_name}' not found in code")
+
+                func = exec_namespace[function_name]
+                if not callable(func):
+                    raise ValueError(f"'{function_name}' is not a callable function")
+
+                print(f"Calling function: {function_name}")
+                # Call the function with provided arguments
+                func_result = func(*function_args, **function_kwargs)
+                result = make_json_safe(func_result)
+            # Otherwise, check if there's a 'result' variable in the namespace
+            elif 'result' in exec_namespace:
                 result = make_json_safe(exec_namespace['result'])
 
         except Exception as e:
