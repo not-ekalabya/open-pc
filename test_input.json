@@ -1,5 +1,5 @@
 {
     "input": {
-        "code": "print('Hello, World!')\nresult = 2 + 2\nprint('The result is:', result)"
+        "code": "import torch\nprint(torch.__version__)"
     }
 }

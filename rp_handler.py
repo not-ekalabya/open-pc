@@ -2,6 +2,19 @@ import runpod
 import io
 import sys
 import traceback
+import json
+
+def make_json_safe(obj):
+    """Convert an object to a JSON-safe format."""
+    if obj is None or isinstance(obj, (bool, int, float, str)):
+        return obj
+    elif isinstance(obj, (list, tuple)):
+        return [make_json_safe(item) for item in obj]
+    elif isinstance(obj, dict):
+        return {str(k): make_json_safe(v) for k, v in obj.items()}
+    else:
+        # For non-serializable objects, return their string representation
+        return str(obj)
 
 def handler(event):
     """
@@ -54,14 +67,11 @@ def handler(event):
 
         # If there's a 'result' variable in the namespace, use it as the result
         if 'result' in exec_namespace:
-            result = exec_namespace['result']
+            result = make_json_safe(exec_namespace['result'])
 
     except Exception as e:
-        error = {
-            'type': type(e).__name__,
-            'message': str(e),
-            'traceback': traceback.format_exc()
-        }
+        error = str(e)
+        stderr_capture.write(traceback.format_exc())
     finally:
         # Restore original stdout/stderr
         sys.stdout = original_stdout
@@ -73,12 +83,21 @@ def handler(event):
 
     print(f"Execution complete")
 
-    return {
+    response = {
         'stdout': stdout_output,
         'stderr': stderr_output,
         'result': result,
         'error': error
-    } 
+    }
+
+    # Ensure the response is JSON serializable
+    try:
+        json.dumps(response)
+    except (TypeError, ValueError) as e:
+        # If still not serializable, make everything safe
+        response = make_json_safe(response)
+
+    return response 
 
 # Start the Serverless function when the script is run
 if __name__ == '__main__':
