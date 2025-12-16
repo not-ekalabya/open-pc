@@ -1,60 +1,30 @@
 runpod
-numpy==1.26.4
-pandas==2.2.3
-torch==2.6.0+cu124
-torchvision==0.21.0+cu124
-torchaudio==2.6.0+cu124
-gensim==4.4.0
-h5py==3.14.0
-librosa==0.11.0
-numba==0.60.0
-opencv-python==4.12.0.88
-pylint==3.3.3
-pyparsing==3.0.9
-scikit-learn==1.2.2
-scipy==1.15.3
-six==1.17.0
-SoundFile==0.13.1
-spacy==3.8.7
-tensorboard==2.18.0
-tokenizers==0.21.2
-tqdm==4.67.1
-urllib3==2.5.0
+numpy
+pandas
+torch
+torchvision
+torchaudio
+scikit-learn
 
-# Essential ML Libraries (Kaggle-compatible versions)
-xgboost==2.0.3
-lightgbm==4.6.0
-catboost==1.2.8
-imbalanced-learn==0.13.0
-optuna==4.5.0
-
-# Deep Learning & Transformers
-transformers==4.53.3
-datasets==4.4.1
-accelerate==1.9.0
-diffusers==0.34.0
-keras==3.8.0
-
-# Visualization
-matplotlib==3.7.2
-seaborn==0.12.2
-plotly==5.24.1
-
-# Statistical Analysis
-statsmodels==0.14.5
-joblib==1.5.2
-
-# Data Augmentation
-albumentations==2.0.8
-
-# AutoML & Feature Engineering
-featuretools==1.31.0
-category-encoders==2.7.0
-
-# Model Interpretation
-shap==0.44.1
-lime==0.2.0.1
-
-# Additional Utilities
-kaggle==1.7.4.5
-ipywidgets==8.1.5
+gensim
+h5py
+librosa
+numba
+opencv-python
+pylint
+pyparsing
+scikit-learn
+scipy
+six
+SoundFile
+spacy
+spacy-legacy
+spacy-loggers
+tensorboard
+tensorboard-data-server
+tensorboard-plugin-wit
+tokenizers
+torch
+tqdm
+urllib3
+zsvision
